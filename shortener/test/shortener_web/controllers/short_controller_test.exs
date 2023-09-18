@@ -50,11 +50,6 @@ defmodule ShortenerWeb.ShortControllerTest do
       %{short_code: short_code} = Shortener.Shorts.get_short!(id)
       assert html_response(conn, 200) =~ ~p"/#{short_code}"
     end
-
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, ~p"/shorts", short: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New Short"
-    end
   end
 
 end

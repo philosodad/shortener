@@ -21,6 +21,14 @@ defmodule Shortener.Shorts do
     Repo.all(Short)
   end
 
+  def shorts_csv do
+    Repo.all(Short)
+    |> Enum.map(fn short -> Map.take(short, [:short_code, :original, :visited]) end)
+    |> CSV.encode(headers: true)
+    |> Enum.to_list
+    |> to_string
+  end
+
   @doc """
   Gets a single short.
 
@@ -67,6 +75,11 @@ defmodule Shortener.Shorts do
   """
   def change_short(%Short{} = short, attrs \\ %{}) do
     Short.changeset(short, attrs)
+  end
+
+  def increment_visited(%Short{} = short) do
+    change_short(short, %{visited: short.visited + 1})
+    |> Repo.update!()
   end
 
   def get_by_short_code!(short_code) do

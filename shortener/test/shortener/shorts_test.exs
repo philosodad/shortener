@@ -25,6 +25,20 @@ defmodule Shortener.ShortsTest do
       assert Shorts.get_by_short_code!(short.short_code).id == short.id
     end
 
+    test "increment_visited" do
+      short = short_fixture()
+      times = Enum.random(5..30)
+      (1..times)
+      |> Enum.each(
+        fn _ ->
+          short = Shorts.get_short!(short.id)
+          Shorts.increment_visited(short)
+        end
+      )
+      short = Shorts.get_short!(short.id)
+      assert short.visited == times
+    end
+
     test "create_short/1 with valid data creates a short" do
       url = Faker.Internet.url()
       valid_attrs = %{visited: nil, shortened: nil, original: url}

@@ -19,7 +19,7 @@ defmodule Shortener.MixProject do
   def application do
     [
       mod: {Shortener.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :csv]
     ]
   end
 
