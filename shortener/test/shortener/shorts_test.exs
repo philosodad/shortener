@@ -20,15 +20,21 @@ defmodule Shortener.ShortsTest do
       assert Shorts.get_short!(short.id) == short
     end
 
+    test "get_by_short_code!/1 returns a short with a given short_code" do
+      short = short_fixture()
+      assert Shorts.get_by_short_code!(short.short_code).id == short.id
+    end
+
     test "create_short/1 with valid data creates a short" do
       url = Faker.Internet.url()
       valid_attrs = %{visited: nil, shortened: nil, original: url}
 
       assert {:ok, %Short{} = short} = Shorts.create_short(valid_attrs)
       assert short.visited == 0 
-      assert short.shortened =~ ~r/^#{ShortenerWeb.Endpoint.url()}\/[[:^space:]]{6}$/
+      assert short.short_code =~ ~r/^[[:^space:]]{6}$/
       assert short.original == url
     end
+
 
     test "a short must be a valid url" do
       Enum.each([Faker.String.base64(25),

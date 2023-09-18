@@ -18,9 +18,9 @@ defmodule ShortenerWeb.Router do
     pipe_through :browser
 
     get "/", ShortController, :new
-    get "/:short_code", ShortController, :short
     get "/shorts/:id", ShortController, :show
     get "/stats", ShortController, :index
+    get "/:short_code", ShortController, :original
     post "/shorts", ShortController, :create
 #    resources "/shorts", ShortController
   end

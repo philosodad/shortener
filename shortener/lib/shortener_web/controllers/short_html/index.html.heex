@@ -3,7 +3,7 @@
 </.header>
 
 <.table id="shorts" rows={@shorts} row_click={&JS.navigate(~p"/shorts/#{&1}")}>
-  <:col :let={short} label="Shortened"><%= short.shortened %></:col>
+  <:col :let={short} label="Shortened"><%= "#{ShortenerWeb.Endpoint.url()}/#{short.short_code}" %></:col>
   <:col :let={short} label="Original"><%= short.original %></:col>
   <:col :let={short} label="Visited"><%= short.visited %></:col>
 </.table>

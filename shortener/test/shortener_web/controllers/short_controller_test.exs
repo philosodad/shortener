@@ -1,8 +1,8 @@
 defmodule ShortenerWeb.ShortControllerTest do
   use ShortenerWeb.ConnCase
 
-  @create_attrs %{visited: nil, shortened: nil, original: "http://some.original"}
-  @invalid_attrs %{visited: nil, shortened: nil, original: nil}
+  @create_attrs %{visited: nil, short_code: nil, original: "http://some.original"}
+  @invalid_attrs %{visited: nil, short_code: nil, original: nil}
 
   describe "stats" do
     test "lists all shorts", %{conn: conn} do
@@ -20,11 +20,11 @@ defmodule ShortenerWeb.ShortControllerTest do
 
   describe "getting a shortened url" do
     test "redirects to the original", %{conn: conn} do
-      %{id: id} = 
+      %{id: id} =
         post(conn, ~p"/shorts", short: @create_attrs)
         |> redirected_params()
-      %{original: original_url, shortened: short_url} = Shortener.Shorts.get_short!(id)
-      conn = get(conn, short_url)
+      %{original: original_url, short_code: short_code} = Shortener.Shorts.get_short!(id)
+      conn = get(conn, ~p"/#{short_code}")
       assert redirected_to(conn) == original_url
     end
      
@@ -38,8 +38,8 @@ defmodule ShortenerWeb.ShortControllerTest do
       assert redirected_to(conn) == ~p"/shorts/#{id}"
 
       conn = get(conn, ~p"/shorts/#{id}")
-      %{shortened: short_url} = Shortener.Shorts.get_short!(id)
-      assert html_response(conn, 200) =~ "#{short_url}"
+      %{short_code: short_code} = Shortener.Shorts.get_short!(id)
+      assert html_response(conn, 200) =~ ~p"/#{short_code}"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do

@@ -26,6 +26,11 @@ defmodule ShortenerWeb.ShortController do
     end
   end
 
+  def original(conn, %{"short_code" => short_code}) do
+    %{original: original} = Shorts.get_by_short_code!(short_code)
+    redirect(conn, external: original)
+  end
+
   def show(conn, %{"id" => id}) do
     short = Shorts.get_short!(id)
     render(conn, :show, short: short)

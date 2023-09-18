@@ -1,5 +1,5 @@
 <.header>
-  <%= @short.shortened %>
+  <%= "#{ShortenerWeb.Endpoint.url()}/#{@short.short_code}" %>
 </.header>
 
 <.list>

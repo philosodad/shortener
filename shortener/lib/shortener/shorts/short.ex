@@ -4,7 +4,7 @@ defmodule Shortener.Shorts.Short do
 
   schema "shorts" do
     field :visited, :integer, default: 0
-    field :shortened, :string
+    field :short_code, :string
     field :original, :string
 
     timestamps()
@@ -13,7 +13,7 @@ defmodule Shortener.Shorts.Short do
   @doc false
   def changeset(short, attrs) do
     short
-    |> cast(attrs, [:shortened, :original, :visited])
+    |> cast(attrs, [:short_code, :original, :visited])
     |> validate_required([:original])
     |> validate_format(:original, ~r/^https?:\/\/[[:^space:]]+\.[[:^space:]]+$/)
   end
