@@ -1,0 +1,9 @@
+<.header>
+  <%= @short.shortened %>
+</.header>
+
+<.list>
+  <:item title="Original"><%= @short.original %></:item>
+</.list>
+
+<.back navigate={~p"/"}>Shorten Another URI</.back>

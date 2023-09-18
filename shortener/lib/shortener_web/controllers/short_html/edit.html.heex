@@ -1,0 +1,8 @@
+<.header>
+  Edit Short <%= @short.id %>
+  <:subtitle>Use this form to manage short records in your database.</:subtitle>
+</.header>
+
+<.short_form changeset={@changeset} action={~p"/shorts/#{@short}"} />
+
+<.back navigate={~p"/shorts"}>Back to shorts</.back>
