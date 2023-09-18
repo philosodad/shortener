@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  shortener:
+    stdin_open: true
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Phoenix.Dockerfile
+    working_dir: /shortener
+    command: bash
+    volumes:
+      - .:/shortener:cached
+    environment:
+      - MIX_ENV=dev
+      - PORT=4000
+      - DATABASE_URL=ecto://rdb:postgres@postgres/dev_db
+    links:
+      - rdb
+    ports:
+      - "4000:4000"
+  rdb:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
