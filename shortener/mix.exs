@@ -50,6 +50,7 @@ defmodule Shortener.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
+      {:csv, "~> 3.0"},
       {:faker, "~> 0.17", only: :test}
     ]
   end

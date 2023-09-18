@@ -11,6 +11,15 @@ defmodule ShortenerWeb.ShortControllerTest do
     end
   end
 
+  describe "download a csv file" do
+    test "downloads a csv file", %{conn: conn} do
+      conn = post(conn, ~p"/stats")
+      [type] = get_resp_header(conn, "content-type")
+      assert type =~ "text/csv"
+      assert conn.status == 200
+    end
+  end
+
   describe "new short url form" do
     test "renders form", %{conn: conn} do
       conn = get(conn, ~p"/")
@@ -27,7 +36,7 @@ defmodule ShortenerWeb.ShortControllerTest do
       conn = get(conn, ~p"/#{short_code}")
       assert redirected_to(conn) == original_url
     end
-     
+
   end
 
   describe "create short" do

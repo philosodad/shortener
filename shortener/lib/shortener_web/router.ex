@@ -22,6 +22,7 @@ defmodule ShortenerWeb.Router do
     get "/stats", ShortController, :index
     get "/:short_code", ShortController, :original
     post "/shorts", ShortController, :create
+    post "/stats", ShortController, :download
 #    resources "/shorts", ShortController
   end
 
