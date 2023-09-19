@@ -6,8 +6,8 @@ services:
     build:
       context: .
       dockerfile: Phoenix.Dockerfile
-    working_dir: /shortener
-    command: bash
+    working_dir: /shortener/shortener
+    command: bash -c "mix deps.get && mix ecto.setup && mix phx.server"
     volumes:
       - .:/shortener:cached
     environment:
